@@ -1,6 +1,12 @@
 package ru.netology.qamid;
-@Data
+
+import lombok.*;
+
+@NoArgsConstructor
+@Getter
+@Setter
 public class Radio {
+
 
     private int maxStation = 9;
     private int minStation = 0;
@@ -13,8 +19,17 @@ public class Radio {
         maxStation = (stationCount < 1) ? minStation : --stationCount;
     }
 
-    public int getMaxStation(){
-        return maxStation;
+    public void setCurrentStation(int newCurrentStation) {
+        if (newCurrentStation > maxStation || newCurrentStation < minStation) {
+            return;
+        }
+        currentStation = newCurrentStation;
+    }
+
+    public void setCurrentVolume(int newCurrentVolume) {
+        if (newCurrentVolume >= minVolume && newCurrentVolume <= maxVolume) {
+            currentVolume = newCurrentVolume;
+        }
     }
 
     public void nextStation() {
@@ -23,17 +38,6 @@ public class Radio {
 
     public void previousStation() {
         currentStation = (currentStation == minStation) ? maxStation : --currentStation;
-    }
-
-    public void setCurrentStation(int newCurrentStation) {
-        if (newCurrentStation > maxStation || newCurrentStation < minStation) {
-            return;
-        }
-        currentStation = newCurrentStation;
-    }
-
-    public int getCurrentStation() {
-        return currentStation;
     }
 
     public void increaseVolume() {
@@ -46,13 +50,4 @@ public class Radio {
             currentVolume--;
     }
 
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume >= minVolume && newCurrentVolume <= maxVolume) {
-            currentVolume = newCurrentVolume;
-        }
-    }
 }
