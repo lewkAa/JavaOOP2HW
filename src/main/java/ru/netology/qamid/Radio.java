@@ -1,23 +1,37 @@
 package ru.netology.qamid;
 
 public class Radio {
-    private int currentStation;
-    private int currentVolume;
+
+    private int maxStation = 9;
+    private int minStation = 0;
+    private int currentStation = minStation;
+    private int maxVolume = 100;
+    private int minVolume = 0;
+    private int currentVolume = minVolume;
+
+    public  Radio (){}
+
+    public Radio(int stationCount) {
+        maxStation = (stationCount < 1) ? minStation : --stationCount;
+    }
+
+    public int getMaxStation(){
+        return maxStation;
+    }
 
     public void nextStation() {
-        currentStation = (currentStation == 9) ? 0 : currentStation + 1;
+        currentStation = (currentStation == maxStation) ? minStation : ++currentStation;
     }
 
     public void previousStation() {
-        currentStation = (currentStation == 0) ? 9 : currentStation - 1;
+        currentStation = (currentStation == minStation) ? maxStation : --currentStation;
     }
 
     public void setCurrentStation(int newCurrentStation) {
-        if (newCurrentStation > 9 || newCurrentStation < 0) {
+        if (newCurrentStation > maxStation || newCurrentStation < minStation) {
             return;
-        } else {
-            currentStation = newCurrentStation;
         }
+        currentStation = newCurrentStation;
     }
 
     public int getCurrentStation() {
@@ -25,12 +39,12 @@ public class Radio {
     }
 
     public void increaseVolume() {
-        if (currentVolume < 100)
+        if (currentVolume < maxVolume)
             currentVolume++;
     }
 
     public void decreaseVolume() {
-        if (currentVolume > 0)
+        if (currentVolume > minVolume)
             currentVolume--;
     }
 
@@ -39,8 +53,8 @@ public class Radio {
     }
 
     public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume > 100 || newCurrentVolume < 0) {
-            return;
-        } else currentVolume = newCurrentVolume;
+        if (newCurrentVolume >= minVolume && newCurrentVolume <= maxVolume) {
+            currentVolume = newCurrentVolume;
+        }
     }
 }
