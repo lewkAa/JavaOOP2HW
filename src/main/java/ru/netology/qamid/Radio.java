@@ -1,5 +1,5 @@
 package ru.netology.qamid;
-
+@Data
 public class Radio {
 
     private int maxStation = 9;
@@ -8,8 +8,6 @@ public class Radio {
     private int maxVolume = 100;
     private int minVolume = 0;
     private int currentVolume = minVolume;
-
-    public  Radio (){}
 
     public Radio(int stationCount) {
         maxStation = (stationCount < 1) ? minStation : --stationCount;
