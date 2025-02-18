@@ -1,46 +1,53 @@
 package ru.netology.qamid;
 
+import lombok.*;
+
+@NoArgsConstructor
+@Getter
+@Setter
 public class Radio {
-    private int currentStation;
-    private int currentVolume;
 
-    public void nextStation() {
-        currentStation = (currentStation == 9) ? 0 : currentStation + 1;
-    }
 
-    public void previousStation() {
-        currentStation = (currentStation == 0) ? 9 : currentStation - 1;
+    private int maxStation = 9;
+    private int minStation = 0;
+    private int currentStation = minStation;
+    private int maxVolume = 100;
+    private int minVolume = 0;
+    private int currentVolume = minVolume;
+
+    public Radio(int stationCount) {
+        maxStation = (stationCount < 1) ? minStation : --stationCount;
     }
 
     public void setCurrentStation(int newCurrentStation) {
-        if (newCurrentStation > 9 || newCurrentStation < 0) {
+        if (newCurrentStation > maxStation || newCurrentStation < minStation) {
             return;
-        } else {
-            currentStation = newCurrentStation;
+        }
+        currentStation = newCurrentStation;
+    }
+
+    public void setCurrentVolume(int newCurrentVolume) {
+        if (newCurrentVolume >= minVolume && newCurrentVolume <= maxVolume) {
+            currentVolume = newCurrentVolume;
         }
     }
 
-    public int getCurrentStation() {
-        return currentStation;
+    public void nextStation() {
+        currentStation = (currentStation == maxStation) ? minStation : ++currentStation;
+    }
+
+    public void previousStation() {
+        currentStation = (currentStation == minStation) ? maxStation : --currentStation;
     }
 
     public void increaseVolume() {
-        if (currentVolume < 100)
+        if (currentVolume < maxVolume)
             currentVolume++;
     }
 
     public void decreaseVolume() {
-        if (currentVolume > 0)
+        if (currentVolume > minVolume)
             currentVolume--;
     }
 
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume > 100 || newCurrentVolume < 0) {
-            return;
-        } else currentVolume = newCurrentVolume;
-    }
 }
