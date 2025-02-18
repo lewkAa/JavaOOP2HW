@@ -8,6 +8,19 @@ class RadioTest {
 
     @ParameterizedTest
     @CsvSource({
+            "10, 11",
+            "8, 9",
+            "0, 1",
+            "0, -1",
+            "0, 0"
+    })
+    void stationCountParamTest(int expected, int count) {
+        Radio radio = new Radio(count);
+        Assertions.assertEquals(expected, radio.getMaxStation());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
             "0, 1",
             "9, 0",
             "1, 2",
@@ -18,9 +31,9 @@ class RadioTest {
         Radio radio = new Radio();
         radio.setCurrentStation(a);
         radio.nextStation();
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, radio.getCurrentStation());
     }
+
 
     @ParameterizedTest
     @CsvSource({
@@ -34,8 +47,7 @@ class RadioTest {
         Radio radio = new Radio();
         radio.setCurrentStation(a);
         radio.previousStation();
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, radio.getCurrentStation());
     }
 
     @ParameterizedTest
@@ -50,8 +62,7 @@ class RadioTest {
         Radio radio = new Radio();
         radio.setCurrentVolume(a);
         radio.increaseVolume();
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, radio.getCurrentVolume());
     }
     @ParameterizedTest
     @CsvSource({
@@ -66,8 +77,7 @@ class RadioTest {
         Radio radio = new Radio();
         radio.setCurrentVolume(a);
         radio.decreaseVolume();
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, radio.getCurrentVolume());
     }
 
 }
